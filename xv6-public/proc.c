@@ -262,7 +262,7 @@ wait(int *status)
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
-	p->status = *status;
+        p->status = *status;
         release(&ptable.lock);
         return pid;
       }
@@ -288,27 +288,27 @@ int waitpid(int pid, int *status, int options){
     got_pid = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->pid == pid){
-	got_pid = 1;
-	if(p->state == ZOMBIE){
-	        //Found pid
-        	temp_pid = p->pid;
-        	kfree(p->kstack);
-		p->kstack = 0;
-        	freevm(p->pgdir);
-        	p->pid = 0;
-        	p->parent = 0;
-        	p->name[0] = 0;
-        	p->killed = 0;
-        	p->state = UNUSED;
-                *status = p->status;
-		p->status = 0;
-        	release(&ptable.lock);
-        	return temp_pid;
-	}
-	else {
-		proc->wait_pid = p->pid;
-		break;
-	}
+        got_pid = 1;
+        if(p->state == ZOMBIE){
+          //Found pid
+          temp_pid = p->pid;
+          kfree(p->kstack);
+          p->kstack = 0;
+          freevm(p->pgdir);
+          p->pid = 0;
+          p->parent = 0;
+          p->name[0] = 0;
+          p->killed = 0;
+          p->state = UNUSED;
+          *status = p->status;
+          p->status = 0;
+          release(&ptable.lock);
+          return temp_pid;
+        }
+        else {
+          proc->wait_pid = p->pid;
+          break;
+        }
       }
     }
     //no point waiting if we don't any pid running

@@ -103,8 +103,8 @@ int             pipewrite(struct pipe*, char*, int);
 
 //PAGEBREAK: 16
 // proc.c
-//void            exit(void);
-void		exit(int status);
+//void          exit(void);
+void            exit(int status);
 int             fork(void);
 int             growproc(int);
 int             kill(int);
@@ -133,7 +133,7 @@ void            popcli(void);
 
 // sleeplock.c
 void            acquiresleep(struct sleeplock*);
-void             releasesleep(struct sleeplock*);
+void            releasesleep(struct sleeplock*);
 int             holdingsleep(struct sleeplock*);
 void            initsleeplock(struct sleeplock*, char*);
 
